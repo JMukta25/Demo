@@ -1,0 +1,15 @@
+n MongoDB, a cluster refers to a group of servers that work together to host and manage a MongoDB database. 
+Clustering is a key feature of MongoDB's architecture that provides benefits
+ such as high availability, scalability, and fault tolerance. The primary purpose of a cluster is to ensure that your MongoDB database remains accessible, responsive, and reliable 
+even in the face of hardware failures or increased load.
+
+Command to activate virtual env  .\myVenv\scripts\activate
+
+RAW String "r
+from django.urls import re_path
+
+urlpatterns = [
+    re_path(r'^articles/(?P<article_id>\d+)/$', views.article_detail),
+]
+In the above example, the r prefix before the regular expression ensures that any backslashes in the expression are treated as literal characters. This can help prevent unintended behavior that might arise from escaping characters.
+^ is the start and $ in the end of the string in url.
