@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import Sidebar from './sidebar';
-import Home from './Home';
-import About from './about';
-import Contact from './contact';
-import Page1 from './Page1';
-import Page2 from './Page2';
-import Page3 from './Page3';
-import Datatable from './datatable';
+import Sidebar from './menu/sidebar';
+import Home from './main-header/Home';
+import About from './main-header/about';
+import Contact from './main-header/contact';
+import Page1 from './main-header/Page1';
+import Page2 from './main-header/Page2';
+import Page3 from './main-header/Page3';
+import Datatable from './threat-vulnerability/datatable';
 
 function App() {
   return (
