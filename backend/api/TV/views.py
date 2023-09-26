@@ -16,6 +16,19 @@ db = client['TV']
 
     # Access a specific collection within the database
 collection = db['TAV']
+key_collection = db['TAV_Key']
+collection.create_index([('_id', pymongo.ASCENDING), ('threat', pymongo.ASCENDING)], unique=True)
+
+def get_next_primary_key():
+    # Find and update the next primary key value in the key collection
+    key_doc = key_collection.find_one_and_update(
+        {'_id': 'TAV_primary_key'},
+        {'$inc': {'value': 1}},
+        upsert=True,
+        return_document=True
+    )
+    return key_doc['value']
+
 
 def serialize_doc(i):
     for key, value in i.items():
@@ -27,6 +40,8 @@ def serialize_doc(i):
 def addTAV(request):
     # Example: Insert a document into the collection
     document = request.data
+     # Get the next primary key value
+    document['_id'] = get_next_primary_key()
     collection.insert_one(document)
     return Response({"message" : "Saved data"})
 
@@ -41,21 +56,26 @@ def getTAV(request):
     return Response(l)
 
 @api_view(['PUT'])
-def updateTAV(request, threat_name):
+def updateTAV(request, threatid,threatname):
     # Example: Update a document in the collection based on the threat name
     updated_data = request.data
-    collection.update_one({"threat": threat_name}, {"$set": updated_data})
+    collection.update_one({"threat": threatname, "_id":threatid}, {"$set": updated_data})
     return Response({"message": "Updated data"})
 
 @api_view(['DELETE'])
-def deleteTAV(request, threat_name):
+def deleteTAV(request, threatid,threatname):
+    
+
+    print("in delete")
+    
     # Example: Delete a document in the collection based on the threat name
-    result = collection.delete_one({"threat": threat_name})
+    result = collection.delete_one({ "_id":threatid,"threat":threatname})
 
     if result.deleted_count == 1:
-        return Response({"message": f"Deleted threat with name '{threat_name}'"})
+        return Response({"message": f"Deleted threat with name '{threatname}'"})
     else:
-        return Response({"message": f"Threat with name '{threat_name}' not found"})
+        return Response({"message": f"Threat with name '{threatname}' not found"})
+
 
 
 

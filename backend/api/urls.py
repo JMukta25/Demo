@@ -1,12 +1,9 @@
-from . import views
-from django.urls import path
+from django.contrib import admin
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-   
-    
-    path('addTAV/',views.addTAV), 
-    path('getTAV/',views.getTAV),
-    path('updateTAV/<str:threat_name>/',views.updateTAV),
-    path('deleteTAV/<str:threat_name>/',views.deleteTAV)
-
+ 
+    path('TV/', include('api.TV.urls')),
+    path('RD/',include('api.RD.urls'))
 ]
