@@ -48,21 +48,21 @@ def getProbablity(request):
     return Response(l)
        
 @api_view(['PUT'])
-def updateProbablity(request,probablityid,probablityname):
+def updateProbablity(request,probablity):
     updated_data=request.data
-    result=collection.update_one({"probablityname":probablityname,"_id":probablityid},{"$set":updated_data})
+    result=collection.update_one({"probablity":probablity},{"$set":updated_data})
     if result.modified_count == 1:
-     return Response({"message":f"Updated Risk with name'{probablityname}'"})
+     return Response({"message":f"Updated probablity with rating'{probablity}'"})
     else:
-     return Response({"message":f"Risk with the name '{probablityname}' not found"})
+     return Response({"message":f"probablity with the rating '{probablity}' not found"})
 
 @api_view(['DELETE'])
-def deleteProbablity(request,probablityid,probablityname):
-   result=collection.delete_one({"probablityname":probablityname,"_id":probablityid})
+def deleteProbablity(request,probablity):
+   result=collection.delete_one({"probablity":probablity})
    if result.deleted_count == 1:
-    return Response({"message":f"Deleted Risk with name'{probablityname}'"})
+    return Response({"message":f"Deleted probablity with name'{probablity}'"})
    else:
-    return Response({"message":f"Risk with the name '{probablityname}' not found"})
+    return Response({"message":f"Probablity with the name '{probablity}' not found"})
     
        
 

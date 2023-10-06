@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
  import AddProbablity from './addProbablity';
- //import EditRisk from './editriskdefination'; // Create this component
+import EditProbablityModal from './editProbablitydefination'; // Create this component
 const Probablitydefinationdatatable = () => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false); // State to manage AddThreatModal
-    const [editRisk, setEditRisk] = useState(null); // State to track edited threat
+    const [editProbablity, setEditProbablity] = useState(null); // State to track edited threat
   
     useEffect(() => {
       fetchData();
@@ -35,19 +35,19 @@ const Probablitydefinationdatatable = () => {
     };
   
     const openEditModal = (probablity) => {
-      setEditRisk(probablity);
+      setEditProbablity(probablity);
     };
   
     const closeEditModal = () => {
-      setEditRisk(null);
+      setEditProbablity(null);
     };
   
-    const handleDeleteRisk = async (probablityid,probablityname) => {
-      console.log(probablityid)
+    const handleDeleteProbablity = async (probablity) => {
+      console.log(probablity)
       try {
         // Implement your axios.delete request to delete the threat by ID
         // After successful deletion, you can fetch the updated data
-        const response = await axios.delete(`http://localhost:8000/api/RD/deleteRisk/${probablityid}/${probablityname}/`);
+        const response = await axios.delete(`http://localhost:8000/api/Probablity/deleteRisk/${probablity}/`);
         if (response.status === 200) {
           console.log("reponse status 200")
           closeModal();
@@ -96,7 +96,7 @@ const Probablitydefinationdatatable = () => {
               <td className="py-3 px-6 border text-left">{entry.aditionalguidance}</td> 
 
            
-              {/* <td className="py-3 px-6 border text-left">
+              <td className="py-3 px-6 border text-left">
                 <button
                    onClick={() => openEditModal(entry)}
                   className="bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-green-800">
@@ -105,27 +105,27 @@ const Probablitydefinationdatatable = () => {
               </td>
               <td className="py-3 px-6 border text-left">
                 <button
-                  onClick={() =>{ handleDeleteRisk(entry._id,entry.probablityname)
+                  onClick={() =>{ handleDeleteProbablity(entry.probablity)
                     // console.log(entry)
                   }}
                   className="bg-red-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-red-800"
                 >
                   Delete
                 </button>
-              </td> */}
+              </td>
             </tr>   
           ))}
 
 
         </tbody>
         {isModalOpen && <AddProbablity closeModal={closeModal} />}
-      {/* {editRisk && (
-        <EditRisk
-          risk={editRisk}
+      {editProbablity && (
+        <EditProbablityModal
+          probablity={editProbablity}
           closeModal={closeEditModal}
           fetchData={fetchData} // Pass the fetchData function to update data after editing
         />
-      )} */}
+      )}
             
 
               
