@@ -9,7 +9,7 @@ import Page1 from './main-header/Page1';
 import Page2 from './main-header/Page2';
 import Page3 from './main-header/Page3';
 import Datatable from './threat-vulnerability/datatable';
-import Riskdefinationdatatable from './risk-definations/riskdefinationdatatable';
+import Probablitydefinationdatatable from './probablity-definations/probablitydefinationdatatable';
 
 function App() {
   return (
@@ -34,7 +34,7 @@ function App() {
               <Route path="/page2" element={<Page2 />} />
               <Route path="/page3" element={<Page3 />} />
               <Route path="/datatable" element={<Datatable />} />
-              <Route path="/riskdefinationdatatable" element={<Riskdefinationdatatable />} />
+              <Route path="/riskdefinationdatatable" element={<Probablitydefinationdatatable />} />
 
             </Routes>
           </div>

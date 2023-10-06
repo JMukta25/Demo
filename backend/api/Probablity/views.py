@@ -10,14 +10,14 @@ client=pymongo.MongoClient(connection_string)
 #Access a specific database
 db=client['TV']
 #Access a specific collection within the database
-collection=db['RD']
-key_collection=db['RD_Key']
-collection.create_index([('_id',pymongo.ASCENDING),('riskname',pymongo.ASCENDING)],unique=True)
+collection=db['PD']
+key_collection=db['PD_Key']
+collection.create_index([('_id',pymongo.ASCENDING),('probablityname',pymongo.ASCENDING)],unique=True)
 
 def get_next_primary_key():
     # Find and update the next primary key value in the key collection
     key_doc = key_collection.find_one_and_update(
-        {'_id': 'RD_primary_key'},
+        {'_id': 'PD_primary_key'},
         {'$inc': {'value': 1}},
         upsert=True,
         return_document=True
@@ -31,7 +31,7 @@ def serialize_doc(i):
     return i
 
 @api_view(['POST'])
-def addRisk(request):
+def addProbablity(request):
     document=request.data
     #Inserting a Risk
     document['_id']=get_next_primary_key()
@@ -39,7 +39,7 @@ def addRisk(request):
     return Response({"message":"Saved the data"})
 
 @api_view(['GET'])
-def getRisk(request):
+def getProbablity(request):
     document=collection.find()
     l=[]
     for i in document:
@@ -48,21 +48,21 @@ def getRisk(request):
     return Response(l)
        
 @api_view(['PUT'])
-def updateRisk(request,riskid,riskname):
+def updateProbablity(request,probablityid,probablityname):
     updated_data=request.data
-    result=collection.update_one({"riskname":riskname,"_id":riskid},{"$set":updated_data})
+    result=collection.update_one({"probablityname":probablityname,"_id":probablityid},{"$set":updated_data})
     if result.modified_count == 1:
-     return Response({"message":f"Updated Risk with name'{riskname}'"})
+     return Response({"message":f"Updated Risk with name'{probablityname}'"})
     else:
-     return Response({"message":f"Risk with the name '{riskname}' not found"})
+     return Response({"message":f"Risk with the name '{probablityname}' not found"})
 
 @api_view(['DELETE'])
-def deleteRisk(request,riskid,riskname):
-   result=collection.delete_one({"riskname":riskname,"_id":riskid})
+def deleteProbablity(request,probablityid,probablityname):
+   result=collection.delete_one({"probablityname":probablityname,"_id":probablityid})
    if result.deleted_count == 1:
-    return Response({"message":f"Deleted Risk with name'{riskname}'"})
+    return Response({"message":f"Deleted Risk with name'{probablityname}'"})
    else:
-    return Response({"message":f"Risk with the name '{riskname}' not found"})
+    return Response({"message":f"Risk with the name '{probablityname}' not found"})
     
        
 

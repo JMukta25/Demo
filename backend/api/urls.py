@@ -5,5 +5,5 @@ from django.urls import path, include
 urlpatterns = [
  
     path('TV/', include('api.TV.urls')),
-    path('RD/',include('api.RD.urls'))
+    path('Probablity/',include('api.Probablity.urls'))
 ]
