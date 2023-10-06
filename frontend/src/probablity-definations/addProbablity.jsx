@@ -44,11 +44,13 @@ const AddProbablity = ({ closeModal }) => {
     onChange={(e) => {setProbablity( e.target.value )}}
     className="w-80 px-4 py-2 border rounded mb-4"
   >
-    <option value="1">1 - Low</option>
-    <option value="2">2 - Moderate</option>
-    <option value="3">3 - Medium</option>
-    <option value="4">4 - High</option>
-    <option value="5">5 - Very High</option>
+    
+    <option value="">Please select the option</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
   </select>
 </div>
             <div className="mb-4">
